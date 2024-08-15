@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre avis nous intéresse</title>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Votre avis nous intéresse">
+    <meta property="og:description" content="Aidez-nous à améliorer notre service en nous laissant une note.">
+    <meta property="og:image" content="https://i.ibb.co/X8qT12B/rogner-logo.png">
+    <meta property="og:url" content="https://avis-gle.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:image:alt" content="Logo">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #0099ff, #66ccff);
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+        .logo-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .logo {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        h1 {
+            color: #8DC63F;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        .stars {
+            font-size: 2.5rem;
+            color: #ccc;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        .star {
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 0.2rem;
+        }
+        .star:hover, .star.active {
+            color: #F7941D;
+            transform: scale(1.2);
+        }
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .emoji {
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .emoji.visible {
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+        #confirmation {
+            font-weight: bold;
+            color: #8DC63F;
+            margin-top: 1rem;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .star.pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <figure class="logo-container">
+            <!-- Mise à jour du lien pour rediriger vers boostreview.org -->
+            <a href="https://boostreview.org" target="_blank" rel="noopener noreferrer">
+                <img src="https://i.ibb.co/X8qT12B/rogner-logo.png" alt="Logo" class="logo">
+            </a>
+        </figure>
+        <h1>Votre avis nous intéresse !</h1>
+        <p>Aidez-nous à améliorer notre service en nous laissant une note.</p>
+        <div class="stars" role="radiogroup" aria-label="Notation par étoiles">
+            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="1 étoile">☆</span>
+            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="2 étoiles">☆</span>
+            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="3 étoiles">☆</span>
+            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="4 étoiles">☆</span>
+            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="5 étoiles">☆</span>
+        </div>
+        <div class="emoji-container">
+            <span class="emoji" data-rating="1">😞</span>
+            <span class="emoji" data-rating="2">😕</span>
+            <span class="emoji" data-rating="3">😐</span>
+            <span class="emoji" data-rating="4">🙂</span>
+            <span class="emoji" data-rating="5">😄</span>
+        </div>
+        <p id="confirmation"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.star');
+            const emojis = document.querySelectorAll('.emoji');
+            const confirmation = document.getElementById('confirmation');
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => rateService(index + 1));
+                star.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        rateService(index + 1);
+                    }
+                });
+                star.addEventListener('mouseover', () => hoverStars(index + 1));
+                star.addEventListener('mouseout', resetStars);
+            });
+
+            function hoverStars(rating) {
+                stars.forEach((star, index) => {
+                    star.textContent = index < rating ? '★' : '☆';
+                    star.classList.toggle('active', index < rating);
+                });
+                showEmoji(rating);
+            }
+
+            function resetStars() {
+                stars.forEach(star => {
+                    star.textContent = '☆';
+                    star.classList.remove('active');
+                });
+                hideEmojis();
+            }
+
+            function showEmoji(rating) {
+                hideEmojis();
+                document.querySelector(`.emoji[data-rating="${rating}"]`).classList.add('visible');
+            }
+
+            function hideEmojis() {
+                emojis.forEach(emoji => emoji.classList.remove('visible'));
+            }
+
+            function rateService(rating) {
+                stars.forEach((star, index) => {
+                    star.textContent = index < rating ? '★' : '☆';
+                    star.classList.toggle('active', index < rating);
+                    star.classList.toggle('pulse', index < rating);
+                    star.setAttribute('aria-checked', index < rating ? 'true' : 'false');
+                });
+
+                showEmoji(rating);
+
+                confirmation.textContent = "Merci pour votre évaluation !";
+
+                // Redirection après un délai minimal pour permettre à l'utilisateur de voir le message de confirmation
+                setTimeout(() => {
+                    window.location.href = rating <= 3 
+                        ? 'https://forms.monday.com/forms/55249f3125b08817c1d8cc93fa779cf6?r=euc1' 
+                        : 'https://fr.trustpilot.com/';
+                }, 1500); // Délai de 1.5 secondes pour une meilleure visibilité du message de confirmation
+            }
+        });
+    </script>
+</body>
+</html>
