@@ -1,211 +1,208 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Votre avis nous intéresse</title>
+<html><head><base href="https://avis-gle.vercel.app/%20enleve%20ce%20bouton%20Merci%20pour%20votre%20retour">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Votre avis nous intéresse</title>
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Votre avis nous intéresse">
-    <meta property="og:description" content="Aidez-nous à améliorer notre service en nous laissant une note.">
-    <meta property="og:image" content="https://i.ibb.co/JrwGd78/your-image.jpg"> <!-- Mettez ici le lien direct vers l'image -->
-    <meta property="og:url" content="https://avis-gle.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta property="og:image:alt" content="Logo">
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="Votre avis nous intéresse">
+<meta property="og:description" content="Aidez-nous à améliorer notre service en nous laissant une note.">
+<meta property="og:image" content="https://i.ibb.co/X8qT12B/rogner-logo.png">
+<meta property="og:url" content="https://avis-gle.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:image:alt" content="Logo">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #333333;
-            --secondary-color: #666666;
-            --background-color: #F5F5F5;
-            --container-background: #FFFFFF;
-            --border-color: #E0E0E0;
-            --hover-color: #555555;
-            --star-color: #FFD700;
-        }
+<style>
+    :root {
+        --primary-color: #333333;
+        --secondary-color: #666666;
+        --background-color: #F5F5F5;
+        --container-background: #FFFFFF;
+        --border-color: #E0E0E0;
+        --hover-color: #555555;
+        --star-color: #FFD700;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #E6F3FF 0%, #C5E1FF 100%);
-            background-attachment: fixed;
-            color: var(--primary-color);
-        }
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #E6F3FF 0%, #C5E1FF 100%);
+        background-attachment: fixed;
+        color: var(--primary-color);
+    }
 
+    .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        padding: 3rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .logo-container {
+        margin: 0 auto 2rem;
+    }
+
+    .logo {
+        width: 180px; /* Increased from 120px to 180px */
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    h1 {
+        margin-bottom: 1rem;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    p {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--secondary-color);
+    }
+
+    .stars {
+        font-size: 3rem;
+        color: #CCCCCC;
+        cursor: pointer;
+        margin-bottom: 1.5rem;
+        user-select: none;
+    }
+
+    .star {
+        display: inline-block;
+        margin: 0 0.2rem;
+        transition: all 0.3s ease;
+    }
+
+    .star:hover,
+    .star.selected {
+        color: var(--star-color);
+    }
+
+    .emoji-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        height: 4rem;
+    }
+
+    .emoji {
+        font-size: 2.5rem;
+        margin: 0 0.5rem;
+        opacity: 0;
+        transition: all 0.5s ease;
+        transform: translateY(20px);
+    }
+
+    .emoji.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #comment-section {
+        display: none;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    #comment-section textarea {
+        width: 100%;
+        min-height: 40px;
+        max-height: 200px;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        font-size: 1rem;
+        margin-bottom: 15px;
+        resize: none;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    #comment-section textarea:focus {
+        border-color: var(--secondary-color);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
+        background-color: rgba(255, 255, 255, 1);
+    }
+
+    #submit-button {
+        display: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        background-color: var(--primary-color);
+        color: var(--container-background);
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    #submit-button:hover {
+        background-color: var(--hover-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #confirmation {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    #confirmation.visible {
+        opacity: 1;
+    }
+
+    @media (max-width: 600px) {
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 3rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo-container {
-            margin: 0 auto 2rem;
-        }
-
-        .logo {
-            width: 180px; /* Increased from 120px to 180px */
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
+            padding: 2rem;
         }
 
         h1 {
-            margin-bottom: 1rem;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--secondary-color);
+            font-size: 1.8rem;
         }
 
         .stars {
-            font-size: 3rem;
-            color: #CCCCCC;
-            cursor: pointer;
-            margin-bottom: 1.5rem;
-            user-select: none;
-        }
-
-        .star {
-            display: inline-block;
-            margin: 0 0.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .star:hover,
-        .star.selected {
-            color: var(--star-color);
-        }
-
-        .emoji-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            height: 4rem;
+            font-size: 2.5rem;
         }
 
         .emoji {
-            font-size: 2.5rem;
-            margin: 0 0.5rem;
-            opacity: 0;
-            transition: all 0.5s ease;
-            transform: translateY(20px);
+            font-size: 2rem;
         }
 
-        .emoji.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .logo {
+            width: 150px; /* Slightly smaller for mobile, but still larger than original */
         }
-
-        #comment-section {
-            display: none;
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        #comment-section textarea {
-            width: 100%;
-            min-height: 40px;
-            max-height: 200px;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            font-size: 1rem;
-            margin-bottom: 15px;
-            resize: none;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        #comment-section textarea:focus {
-            border-color: var(--secondary-color);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
-            background-color: rgba(255, 255, 255, 1);
-        }
-
-        #submit-button {
-            display: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            background-color: var(--primary-color);
-            color: var(--container-background);
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        #submit-button:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #confirmation {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-top: 1rem;
-            font-size: 1.1rem;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        #confirmation.visible {
-            opacity: 1;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 2rem;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .stars {
-                font-size: 2.5rem;
-            }
-
-            .emoji {
-                font-size: 2rem;
-            }
-
-            .logo {
-                width: 150px; /* Slightly smaller for mobile, but still larger than original */
-            }
-        }
-    </style>
-</head>
-<body>
+    }
+</style>
+</head><body>
     <div class="container">
         <figure class="logo-container">
             <a href="https://boostreview.org" target="_blank" rel="noopener noreferrer">
@@ -248,57 +245,137 @@
 
             stars.forEach((star, index) => {
                 star.addEventListener('click', () => rateService(index + 1));
-                star.addEventListener('mouseover', () => highlightStars(index + 1));
-                star.addEventListener('mouseout', () => resetStars());
+                star.addEventListener('mouseover', () => hoverStars(index + 1));
+                star.addEventListener('mouseout', () => {
+                    if (selectedRating === 0) {
+                        resetStars();
+                    } else {
+                        updateStars(selectedRating);
+                    }
+                });
+                star.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        rateService(index + 1);
+                    }
+                });
             });
 
-            emojis.forEach(emoji => {
-                emoji.addEventListener('click', () => rateService(parseInt(emoji.dataset.rating)));
-            });
-
-            commentTextarea.addEventListener('input', () => {
-                if (commentTextarea.value.trim()) {
-                    submitButton.style.display = 'block';
-                } else {
-                    submitButton.style.display = 'none';
-                }
-            });
-
-            submitButton.addEventListener('click', () => {
-                if (selectedRating) {
-                    confirmation.textContent = 'Merci pour votre avis!';
-                    confirmation.classList.add('visible');
-                    commentSection.style.display = 'none';
-                } else {
-                    confirmation.textContent = 'Veuillez sélectionner une note.';
-                    confirmation.classList.add('visible');
-                }
-            });
-
-            function rateService(rating) {
-                selectedRating = rating;
+            function hoverStars(rating) {
                 stars.forEach((star, index) => {
-                    star.classList.toggle('selected', index < rating);
+                    star.textContent = index < rating ? '★' : '☆';
+                    star.style.color = index < rating ? 'var(--star-color)' : '#CCCCCC';
                 });
-                emojis.forEach(emoji => {
-                    emoji.classList.toggle('visible', parseInt(emoji.dataset.rating) === rating);
-                });
-                commentSection.style.display = 'block';
-                submitButton.style.display = commentTextarea.value.trim() ? 'block' : 'none';
-            }
-
-            function highlightStars(rating) {
-                stars.forEach((star, index) => {
-                    star.style.color = index < rating ? '#FFD700' : '#CCCCCC';
-                });
+                showEmoji(rating);
             }
 
             function resetStars() {
+                stars.forEach(star => {
+                    star.textContent = '☆';
+                    star.style.color = '#CCCCCC';
+                });
+                hideEmojis();
+            }
+
+            function updateStars(rating) {
                 stars.forEach((star, index) => {
-                    star.style.color = index < selectedRating ? '#FFD700' : '#CCCCCC';
+                    star.textContent = index < rating ? '★' : '☆';
+                    star.style.color = index < rating ? 'var(--star-color)' : '#CCCCCC';
+                    star.setAttribute('aria-checked', index < rating ? 'true' : 'false');
                 });
             }
+
+            function showEmoji(rating) {
+                hideEmojis();
+                if (selectedRating === 0) {
+                    document.querySelector(`.emoji[data-rating="${rating}"]`).classList.add('visible');
+                }
+            }
+
+            function hideEmojis() {
+                emojis.forEach(emoji => emoji.classList.remove('visible'));
+            }
+
+            function rateService(rating) {
+                selectedRating = rating;
+                updateStars(rating);
+                hideEmojis();
+                document.querySelector(`.emoji[data-rating="${rating}"]`).classList.add('visible');
+
+                if (rating >= 4) {
+                    confirmation.textContent = "Merci pour votre évaluation !";
+                    confirmation.classList.add('visible');
+                    stars.forEach(star => star.classList.add('selected'));
+                    commentSection.style.display = 'none';
+                    submitButton.style.display = 'none';
+                    window.location.href = 'https://fr.trustpilot.com/';
+                } else {
+                    confirmation.textContent = "";
+                    confirmation.classList.remove('visible');
+                    commentSection.style.display = 'block';
+                    submitButton.style.display = 'inline-block';
+                }
+            }
+
+            submitButton.addEventListener('click', () => {
+                const comment = commentTextarea.value;
+                if (comment.trim() !== '') {
+                    // Here you would normally send the data to your server
+                    console.log(`Rating: ${selectedRating}, Comment: ${comment}`);
+                    
+                    confirmation.textContent = "Merci pour votre commentaire !";
+                    confirmation.classList.add('visible');
+                    commentSection.style.display = 'none';
+                    submitButton.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'https://boostreview.org';
+                    }, 2000);
+                } else {
+                    alert("Veuillez entrer un commentaire avant de publier.");
+                }
+            });
+
+            // Auto-expand textarea
+            commentTextarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            // Accessibility improvements
+            stars.forEach((star, index) => {
+                star.setAttribute('role', 'radio');
+                star.setAttribute('aria-checked', 'false');
+                star.setAttribute('tabindex', '0');
+                star.setAttribute('aria-label', `${index + 1} étoile${index > 0 ? 's' : ''}`);
+            });
+
+            // Keyboard navigation for stars
+            document.addEventListener('keydown', (e) => {
+                if (e.target.classList.contains('star')) {
+                    const currentIndex = Array.from(stars).indexOf(e.target);
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const nextStar = stars[Math.min(currentIndex + 1, stars.length - 1)];
+                        nextStar.focus();
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const prevStar = stars[Math.max(currentIndex - 1, 0)];
+                        prevStar.focus();
+                    }
+                }
+            });
         });
+
+        // Error handling for unhandled rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled rejection (promise: ', event.promise, ', reason: ', event.reason, ').');
+        });
+
+        // Fallback error handling
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('Global error handler:', message, source, lineno, colno, error);
+        };
     </script>
-</body>
-</html>
+
+</body></html>
