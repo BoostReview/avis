@@ -1,320 +1,234 @@
 <html><head><base href="https://avis-boostreview.vercel.app/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Votre avis compte</title>
+<title>Votre avis compte - Version moderne</title>
 
 <!-- Open Graph Meta Tags -->
-<meta property="og:title" content="Votre avis compte">
-<meta property="og:description" content="Aidez-nous à améliorer notre service en partageant votre expérience.">
+<meta property="og:title" content="Votre avis compte - Version moderne">
+<meta property="og:description" content="Partagez votre expérience et aidez-nous à nous améliorer.">
 <meta property="og:image" content="https://i.ibb.co/JF4VKj8/4.png">
 <meta property="og:url" content="https://avis-boostreview.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:image:alt" content="Logo">
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- EmailJS Library -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<!-- GSAP for animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
 <style>
     :root {
-        --primary-color: #007AFF;
-        --secondary-color: #333333;
-        --background-color: #F2F2F7;
-        --container-background: #FFFFFF;
-        --border-color: #E5E5EA;
-        --hover-color: #0056b3;
-        --star-color: #FF9500;
+        --primary-color: #4A90E2;
+        --secondary-color: #F5A623;
+        --background-color: #F8F9FA;
+        --text-color: #333333;
+        --card-background: #FFFFFF;
         --shadow-color: rgba(0, 0, 0, 0.1);
     }
 
-    body {
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    * {
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
         background-color: var(--background-color);
-        color: var(--secondary-color);
+        color: var(--text-color);
+        line-height: 1.6;
     }
 
     .container {
-        display: flex;
-        flex-direction: column;
-        background-color: var(--container-background);
-        border-radius: 20px;
-        box-shadow: 0 8px 30px var(--shadow-color);
-        overflow: hidden;
-        width: 90%;
-        max-width: 600px;
-        transition: all 0.3s ease;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
     }
 
-    .rating-section, .comment-section {
+    .card {
+        background-color: var(--card-background);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px var(--shadow-color);
         padding: 2rem;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
     }
 
     .logo-container {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .logo {
-        width: 150px; /* Increased logo size */
+        max-width: 150px;
         height: auto;
-        transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-        transform: scale(1.05);
     }
 
     h1 {
-        margin-bottom: 0.5rem;
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: var(--secondary-color);
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
         text-align: center;
     }
 
     p {
-        margin-bottom: 1rem;
         font-size: 1.1rem;
-        line-height: 1.5;
-        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
         text-align: center;
-        font-weight: 300;
     }
 
     .stars {
-        font-size: 3rem;
-        color: #D1D5DB;
-        cursor: pointer;
-        margin-bottom: 1rem;
-        user-select: none;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .star {
-        display: inline-block;
-        margin: 0 0.1rem;
-        transition: all 0.3s ease;
+        color: #D1D5DB;
+        cursor: pointer;
+        transition: color 0.3s ease;
     }
 
-    .star:hover,
-    .star.selected {
-        color: var(--star-color);
-        transform: scale(1.2);
+    .star:hover, .star.active {
+        color: var(--secondary-color);
     }
 
     .emoji-container {
         display: flex;
         justify-content: center;
+        font-size: 2rem;
         margin-bottom: 1.5rem;
-        height: 3.5rem;
     }
 
     .emoji {
-        font-size: 2.5rem;
-        margin: 0 0.3rem;
+        margin: 0 0.5rem;
         opacity: 0;
-        transition: all 0.5s ease;
-        transform: translateY(20px);
+        transition: opacity 0.3s ease;
     }
 
     .emoji.visible {
         opacity: 1;
-        transform: translateY(0);
-    }
-
-    #comment-section textarea, #comment-section input {
-        width: 100%;
-        padding: 1rem;
-        border-radius: 10px;
-        border: 1px solid var(--border-color);
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        box-sizing: border-box;
-        transition: all 0.3s ease;
-        background-color: var(--background-color);
-    }
-
-    #comment-section textarea {
-        min-height: 100px;
-        max-height: 200px;
-        resize: vertical;
-    }
-
-    #comment-section textarea:focus, #comment-section input:focus {
-        border-color: var(--primary-color);
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
-    }
-
-    #submit-button {
-        width: 100%;
-        padding: 1rem;
-        border-radius: 10px;
-        background-color: var(--primary-color);
-        color: #FFFFFF;
-        border: none;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-
-    #submit-button:hover {
-        background-color: var(--hover-color);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px var(--shadow-color);
     }
 
     #confirmation {
-        font-weight: 500;
-        color: var(--primary-color);
-        margin-top: 1rem;
-        font-size: 1.2rem;
-        opacity: 0;
-        transition: opacity 0.5s ease;
         text-align: center;
+        color: var(--primary-color);
+        font-weight: bold;
+        margin-top: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
     #confirmation.visible {
         opacity: 1;
     }
 
-    .testimonials {
-        margin-top: 1rem;
-        padding: 1.5rem;
-        background-color: var(--background-color);
-        border-radius: 15px;
-        max-height: 300px;
-        overflow-y: auto;
+    .comment-section {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
-    .testimonials h2 {
-        font-size: 1.5rem;
+    .comment-section.visible {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 0.8rem;
         margin-bottom: 1rem;
-        color: var(--secondary-color);
-        font-weight: 600;
+        border: 1px solid #D1D5DB;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #3A7BC8;
+    }
+
+    .testimonials {
+        margin-top: 2rem;
     }
 
     .testimonial {
-        margin-bottom: 1.5rem;
-        padding: 1.2rem;
-        background-color: var(--container-background);
+        background-color: var(--card-background);
         border-radius: 12px;
-        box-shadow: 0 2px 10px var(--shadow-color);
-        transition: all 0.3s ease;
-    }
-
-    .testimonial:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px var(--shadow-color);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px var(--shadow-color);
     }
 
     .testimonial-rating {
-        color: var(--star-color);
+        color: var(--secondary-color);
         font-size: 1.2rem;
         margin-bottom: 0.5rem;
     }
 
     .testimonial-text {
         font-style: italic;
-        color: var(--secondary-color);
         margin-bottom: 0.5rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        font-weight: 300;
     }
 
     .testimonial-author {
-        font-weight: 500;
-        color: var(--secondary-color);
-        font-size: 1rem;
+        font-weight: bold;
     }
 
     .testimonial-date {
         font-size: 0.9rem;
-        color: #8E8E93;
-    }
-
-    @keyframes slideDown {
-        0% {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .slide-down {
-        animation: slideDown 0.5s ease-out forwards;
+        color: #6B7280;
     }
 
     @media (max-width: 768px) {
         .container {
-            width: 95%;
-        }
-
-        .rating-section, .comment-section {
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         h1 {
             font-size: 2rem;
         }
 
-        p {
-            font-size: 1rem;
-        }
-
         .stars {
-            font-size: 2.5rem;
-        }
-
-        .emoji {
             font-size: 2rem;
         }
 
-        .logo {
-            width: 120px; /* Adjusted for mobile */
-        }
-
-        #submit-button {
-            padding: 0.9rem;
-            font-size: 1rem;
-        }
-
-        .testimonials {
-            max-height: 250px;
-        }
-
-        .testimonial {
-            padding: 1rem;
-        }
-
-        .testimonial-rating {
-            font-size: 1rem;
-        }
-
-        .testimonial-text {
-            font-size: 0.9rem;
-        }
-
-        .testimonial-author, .testimonial-date {
-            font-size: 0.8rem;
+        .emoji-container {
+            font-size: 1.5rem;
         }
     }
 </style>
-</head><body>
+</head>
+<body>
     <div class="container">
-        <div class="rating-section">
+        <div class="card rating-section">
             <figure class="logo-container">
                 <a href="https://boostreview.org" target="_blank" rel="noopener noreferrer">
                     <img src="https://i.ibb.co/X8qT12B/rogner-logo.png" alt="Logo" class="logo">
@@ -323,7 +237,11 @@
             <h1>Votre avis compte</h1>
             <p>Aidez-nous à améliorer notre service en partageant votre expérience.</p>
             <div class="stars" role="radiogroup" aria-label="Notation par étoiles">
-                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="1 étoile">☆</span><span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="2 étoiles">☆</span><span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="3 étoiles">☆</span><span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="4 étoiles">☆</span><span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="5 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="1 étoile">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="2 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="3 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="4 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="5 étoiles">☆</span>
             </div>
             <div class="emoji-container">
                 <span class="emoji" data-rating="1">😞</span>
@@ -334,9 +252,9 @@
             </div>
             <p id="confirmation"></p>
         </div>
-        <div class="comment-section" id="comment-section" style="display: none;">
+        <div class="card comment-section" id="comment-section">
             <input type="text" id="name" placeholder="Votre nom" required>
-            <textarea id="comment" placeholder="Votre avis est important. Dites-nous en plus..."></textarea>
+            <textarea id="comment" placeholder="Votre avis est important. Dites-nous en plus..." rows="4"></textarea>
             <button id="submit-button">Publier</button>
         </div>
         <div class="testimonials" id="testimonials">
@@ -346,6 +264,11 @@
     </div>
 
     <script>
+        // Initialisation de EmailJS
+        (function() {
+            emailjs.init("R8L0vONdzehaCQe-g");
+        })();
+
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('.star');
             const emojis = document.querySelectorAll('.emoji');
@@ -414,7 +337,7 @@
             function hoverStars(rating) {
                 stars.forEach((star, index) => {
                     star.textContent = index < rating ? '★' : '☆';
-                    star.style.color = index < rating ? 'var(--star-color)' : '#D1D5DB';
+                    star.classList.toggle('active', index < rating);
                 });
                 showEmoji(rating);
             }
@@ -422,7 +345,7 @@
             function resetStars() {
                 stars.forEach(star => {
                     star.textContent = '☆';
-                    star.style.color = '#D1D5DB';
+                    star.classList.remove('active');
                 });
                 hideEmojis();
             }
@@ -430,7 +353,7 @@
             function updateStars(rating) {
                 stars.forEach((star, index) => {
                     star.textContent = index < rating ? '★' : '☆';
-                    star.style.color = index < rating ? 'var(--star-color)' : '#D1D5DB';
+                    star.classList.toggle('active', index < rating);
                     star.setAttribute('aria-checked', index < rating ? 'true' : 'false');
                 });
             }
@@ -458,9 +381,7 @@
                     confirmation.textContent = "";
                     confirmation.classList.remove('visible');
                     commentSection.style.display = 'block';
-                    commentSection.classList.remove('slide-down');
-                    void commentSection.offsetWidth; // Force reflow
-                    commentSection.classList.add('slide-down');
+                    gsap.to(commentSection, {duration: 0.5, opacity: 1, y: 0, ease: "power2.out"});
                 }
             }
 
@@ -468,19 +389,33 @@
                 const comment = commentTextarea.value;
                 const name = nameInput.value;
                 if (comment.trim() !== '' && name.trim() !== '') {
-                    console.log(`Rating: ${selectedRating}, Name: ${name}, Comment: ${comment}`);
-                    
-                    confirmation.textContent = "Merci pour votre commentaire !";
-                    confirmation.classList.add('visible');
-                    commentSection.style.display = 'none';
-                    
-                    setTimeout(() => {
-                        window.location.href = 'https://boostreview.org';
-                    }, 2000);
+                    sendEmail(name, comment, selectedRating);
                 } else {
                     alert("Veuillez entrer votre nom et un commentaire avant de publier.");
                 }
             });
+
+            function sendEmail(name, comment, rating) {
+                emailjs.send("service_sp7w0zh", "template_2i9cb8n", {
+                    from_name: name,
+                    message: comment,
+                    rating: rating
+                }).then(function(response) {
+                    console.log("Email envoyé avec succès:", response);
+                    confirmation.textContent = "Merci pour votre commentaire !";
+                    confirmation.classList.add('visible');
+                    gsap.to(commentSection, {duration: 0.5, opacity: 0, y: 20, ease: "power2.in", onComplete: () => {
+                        commentSection.style.display = 'none';
+                    }});
+                    
+                    setTimeout(() => {
+                        window.location.href = 'https://boostreview.org';
+                    }, 2000);
+                }, function(error) {
+                    console.error("Erreur lors de l'envoi de l'email:", error);
+                    alert("Une erreur s'est produite lors de l'envoi de votre commentaire. Veuillez réessayer.");
+                });
+            }
 
             commentTextarea.addEventListener('input', function() {
                 this.style.height = 'auto';
@@ -518,5 +453,5 @@
             console.error('Global error handler:', message, source, lineno, colno, error);
         };
     </script>
-
-</body></html>
+</body>
+</html>
