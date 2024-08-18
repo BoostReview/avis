@@ -1,4 +1,4 @@
-<html><head><base href="https://avis-boostreview.vercel.app/%20enleve%20ce%20bouton%20Merci%20pour%20votre%20retour">
+<html><head><base href="https://avis-gle.vercel.app/%20enleve%20ce%20bouton%20Merci%20pour%20votre%20retour">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Votre avis nous intéresse</title>
@@ -6,8 +6,8 @@
 <!-- Open Graph Meta Tags -->
 <meta property="og:title" content="Votre avis nous intéresse">
 <meta property="og:description" content="Aidez-nous à améliorer notre service en nous laissant une note.">
-<meta property="og:image" content="https://i.ibb.co/vPGNj8M/7.png">
-<meta property="og:url" content="https://avis-boostreview.vercel.app/">
+<meta property="og:image" content="https://i.ibb.co/X8qT12B/rogner-logo.png">
+<meta property="og:url" content="https://avis-gle.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:image:alt" content="Logo">
 
@@ -39,15 +39,28 @@
     }
 
     .container {
+        display: flex;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 12px;
-        padding: 3rem;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        max-width: 500px;
+        overflow: hidden;
         width: 90%;
+        max-width: 1000px;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
+    }
+
+    .rating-section {
+        flex: 1;
+        padding: 3rem;
+        text-align: center;
+    }
+
+    .comment-section {
+        flex: 1;
+        padding: 3rem;
+        background-color: rgba(245, 245, 245, 0.9);
+        display: none;
     }
 
     .logo-container {
@@ -117,30 +130,27 @@
         transform: translateY(0);
     }
 
-    #comment-section {
-        display: none;
-        margin-top: 20px;
-        text-align: left;
-    }
-
-    #comment-section textarea {
+    #comment-section textarea, #comment-section input {
         width: 100%;
-        min-height: 40px;
-        max-height: 200px;
         padding: 15px;
         border-radius: 8px;
         border: 1px solid var(--border-color);
         font-size: 1rem;
         margin-bottom: 15px;
-        resize: none;
         font-family: 'Inter', sans-serif;
-        overflow: hidden;
         box-sizing: border-box;
         transition: all 0.3s ease;
         background-color: rgba(255, 255, 255, 0.8);
     }
 
-    #comment-section textarea:focus {
+    #comment-section textarea {
+        min-height: 40px;
+        max-height: 200px;
+        resize: none;
+        overflow: hidden;
+    }
+
+    #comment-section textarea:focus, #comment-section input:focus {
         border-color: var(--secondary-color);
         outline: none;
         box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
@@ -148,7 +158,6 @@
     }
 
     #submit-button {
-        display: none;
         padding: 12px 25px;
         border-radius: 8px;
         background-color: var(--primary-color);
@@ -180,8 +189,50 @@
         opacity: 1;
     }
 
-    @media (max-width: 600px) {
+    .testimonials {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 8px;
+    }
+
+    .testimonial {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    .testimonial-rating {
+        color: var(--star-color);
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .testimonial-text {
+        font-style: italic;
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .testimonial-author {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .testimonial-date {
+        font-size: 0.9rem;
+        color: var(--secondary-color);
+    }
+
+    @media (max-width: 768px) {
         .container {
+            flex-direction: column;
+        }
+
+        .rating-section, .comment-section {
             padding: 2rem;
         }
 
@@ -204,32 +255,41 @@
 </style>
 </head><body>
     <div class="container">
-        <figure class="logo-container">
-            <a href="https://boostreview.org" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.ibb.co/X8qT12B/rogner-logo.png" alt="Logo" class="logo">
-            </a>
-        </figure>
-        <h1>Votre avis nous intéresse</h1>
-        <p>Aidez-nous à améliorer notre service en nous laissant une note. Votre retour est précieux pour nous.</p>
-        <div class="stars" role="radiogroup" aria-label="Notation par étoiles">
-            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="1 étoile">☆</span>
-            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="2 étoiles">☆</span>
-            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="3 étoiles">☆</span>
-            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="4 étoiles">☆</span>
-            <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="5 étoiles">☆</span>
+        <div class="rating-section">
+            <figure class="logo-container">
+                <a href="https://boostreview.org" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.ibb.co/X8qT12B/rogner-logo.png" alt="Logo" class="logo">
+                </a>
+            </figure>
+            <h1>Votre avis nous intéresse</h1>
+            <p>Aidez-nous à améliorer notre service en nous laissant une note. Votre retour est précieux pour nous.</p>
+            <div class="stars" role="radiogroup" aria-label="Notation par étoiles">
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="1 étoile">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="2 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="3 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="4 étoiles">☆</span>
+                <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="5 étoiles">☆</span>
+            </div>
+            <div class="emoji-container">
+                <span class="emoji" data-rating="1">😞</span>
+                <span class="emoji" data-rating="2">😕</span>
+                <span class="emoji" data-rating="3">😐</span>
+                <span class="emoji" data-rating="4">🙂</span>
+                <span class="emoji" data-rating="5">😄</span>
+            </div>
+            <p id="confirmation"></p>
+
+            <div class="testimonials" id="testimonials">
+                <h2>Avis récents de nos clients</h2>
+                <!-- Les avis générés dynamiquement seront insérés ici -->
+            </div>
         </div>
-        <div class="emoji-container">
-            <span class="emoji" data-rating="1">😞</span>
-            <span class="emoji" data-rating="2">😕</span>
-            <span class="emoji" data-rating="3">😐</span>
-            <span class="emoji" data-rating="4">🙂</span>
-            <span class="emoji" data-rating="5">😄</span>
-        </div>
-        <div id="comment-section">
+        <div class="comment-section" id="comment-section">
+            <h2>Partagez votre expérience</h2>
+            <input type="text" id="name" placeholder="Votre nom et prénom" required>
             <textarea id="comment" placeholder="Votre avis compte ! Dites-nous en plus..."></textarea>
             <button id="submit-button">Publier</button>
         </div>
-        <p id="confirmation"></p>
     </div>
 
     <script>
@@ -240,8 +300,52 @@
             const commentSection = document.getElementById('comment-section');
             const submitButton = document.getElementById('submit-button');
             const commentTextarea = document.getElementById('comment');
+            const nameInput = document.getElementById('name');
 
             let selectedRating = 0;
+
+            // Fonction pour générer des avis aléatoires
+            function generateRandomReviews() {
+                const testimonials = document.getElementById('testimonials');
+                testimonials.innerHTML = '<h2>Avis récents de nos clients</h2>';
+
+                const names = ["Thomas D.", "Émilie L.", "Marc B.", "Sophie R.", "Pierre M.", "Lucie G.", "Antoine F.", "Camille H.", "Julien N.", "Marie P."];
+                const comments = [
+                    "Franchement, j'étais un peu sceptique au début, mais wow ! Le service client est top, ils ont répondu super vite à mes questions. Et le produit ? Exactement ce que je cherchais. Trop content de mon achat !",
+                    "Bon, dans l'ensemble c'était une bonne expérience. Le produit est de qualité, rien à dire là-dessus. Par contre, la livraison a pris un jour de plus que prévu. Pas dramatique, mais un peu frustrant quand on est impatient comme moi !",
+                    "Ça fait un moment que je suis client, et je dois dire que je suis toujours aussi satisfait. L'équipe est vraiment à l'écoute, ils ont même pris en compte une suggestion que j'avais faite l'année dernière. Ça, c'est du service !",
+                    "Je recommande vivement ! La qualité est au rendez-vous et le rapport qualité-prix est imbattable. J'ai déjà commandé plusieurs fois et je n'ai jamais été déçu.",
+                    "Le produit correspond parfaitement à la description. Livraison rapide et emballage soigné. Je suis très satisfait de mon achat !",
+                    "Service client réactif et à l'écoute. J'ai eu un petit souci avec ma commande et ils ont tout réglé en un rien de temps. Bravo !",
+                    "Première expérience avec cette entreprise et je suis agréablement surpris. Le produit est de bonne qualité et le prix est correct. Je reviendrai !",
+                    "Un grand merci pour votre professionnalisme. La commande a été traitée rapidement et le produit est impeccable. Je suis fan !",
+                    "J'hésite rarement à laisser des avis, mais là je tenais à partager mon expérience positive. Tout était parfait du début à la fin.",
+                    "Produit reçu en bon état et dans les délais. Rien à redire, c'est exactement ce que j'attendais. Merci !"
+                ];
+
+                const timeUnits = ["jours", "semaines", "mois"];
+
+                for (let i = 0; i < 3; i++) {
+                    const rating = Math.floor(Math.random() * 2) + 4; // Génère une note entre 4 et 5
+                    const name = names[Math.floor(Math.random() * names.length)];
+                    const comment = comments[Math.floor(Math.random() * comments.length)];
+                    const timeValue = Math.floor(Math.random() * 4) + 1;
+                    const timeUnit = timeUnits[Math.floor(Math.random() * timeUnits.length)];
+
+                    const testimonial = document.createElement('div');
+                    testimonial.className = 'testimonial';
+                    testimonial.innerHTML = `
+                        <div class="testimonial-rating">${"★".repeat(rating)}${"☆".repeat(5-rating)}</div>
+                        <p class="testimonial-text">"${comment}"</p>
+                        <p class="testimonial-author">${name}</p>
+                        <p class="testimonial-date">Il y a ${timeValue} ${timeUnit}</p>
+                    `;
+                    testimonials.appendChild(testimonial);
+                }
+            }
+
+            // Générer les avis aléatoires au chargement de la page
+            generateRandomReviews();
 
             stars.forEach((star, index) => {
                 star.addEventListener('click', () => rateService(index + 1));
@@ -307,42 +411,39 @@
                     confirmation.classList.add('visible');
                     stars.forEach(star => star.classList.add('selected'));
                     commentSection.style.display = 'none';
-                    submitButton.style.display = 'none';
-                    window.location.href = 'https://fr.trustpilot.com/';
+                    setTimeout(() => {
+                        window.location.href = 'https://fr.trustpilot.com/';
+                    }, 2000);
                 } else {
                     confirmation.textContent = "";
                     confirmation.classList.remove('visible');
                     commentSection.style.display = 'block';
-                    submitButton.style.display = 'inline-block';
                 }
             }
 
             submitButton.addEventListener('click', () => {
                 const comment = commentTextarea.value;
-                if (comment.trim() !== '') {
-                    // Here you would normally send the data to your server
-                    console.log(`Rating: ${selectedRating}, Comment: ${comment}`);
+                const name = nameInput.value;
+                if (comment.trim() !== '' && name.trim() !== '') {
+                    console.log(`Rating: ${selectedRating}, Name: ${name}, Comment: ${comment}`);
                     
                     confirmation.textContent = "Merci pour votre commentaire !";
                     confirmation.classList.add('visible');
                     commentSection.style.display = 'none';
-                    submitButton.style.display = 'none';
                     
                     setTimeout(() => {
                         window.location.href = 'https://boostreview.org';
                     }, 2000);
                 } else {
-                    alert("Veuillez entrer un commentaire avant de publier.");
+                    alert("Veuillez entrer votre nom et un commentaire avant de publier.");
                 }
             });
 
-            // Auto-expand textarea
             commentTextarea.addEventListener('input', function() {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
             });
 
-            // Accessibility improvements
             stars.forEach((star, index) => {
                 star.setAttribute('role', 'radio');
                 star.setAttribute('aria-checked', 'false');
@@ -350,7 +451,6 @@
                 star.setAttribute('aria-label', `${index + 1} étoile${index > 0 ? 's' : ''}`);
             });
 
-            // Keyboard navigation for stars
             document.addEventListener('keydown', (e) => {
                 if (e.target.classList.contains('star')) {
                     const currentIndex = Array.from(stars).indexOf(e.target);
@@ -367,12 +467,10 @@
             });
         });
 
-        // Error handling for unhandled rejections
         window.addEventListener('unhandledrejection', function(event) {
             console.error('Unhandled rejection (promise: ', event.promise, ', reason: ', event.reason, ').');
         });
 
-        // Fallback error handling
         window.onerror = function(message, source, lineno, colno, error) {
             console.error('Global error handler:', message, source, lineno, colno, error);
         };
