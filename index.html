@@ -1,74 +1,66 @@
 <html><head><base href="https://avis-boostreview.vercel.app/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Votre avis nous intéresse</title>
+<title>Votre avis compte</title>
 
 <!-- Open Graph Meta Tags -->
-<meta property="og:title" content="Votre avis nous intéresse">
-<meta property="og:description" content="Aidez-nous à améliorer notre service en nous laissant une note.">
+<meta property="og:title" content="Votre avis compte">
+<meta property="og:description" content="Aidez-nous à améliorer notre service en partageant votre expérience.">
 <meta property="og:image" content="https://i.ibb.co/JF4VKj8/4.png">
 <meta property="og:url" content="https://avis-boostreview.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:image:alt" content="Logo">
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
     :root {
-        --primary-color: #333333;
-        --secondary-color: #666666;
-        --background-color: #F5F5F5;
-        --container-background: #FFFFFF;
-        --border-color: #E0E0E0;
-        --hover-color: #555555;
-        --star-color: #FFD700;
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --background-color: #ecf0f1;
+        --container-background: #ffffff;
+        --border-color: #bdc3c7;
+        --hover-color: #2980b9;
+        --star-color: #f39c12;
+        --shadow-color: rgba(0, 0, 0, 0.1);
     }
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Roboto', sans-serif;
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background: linear-gradient(135deg, #E6F3FF 0%, #C5E1FF 100%);
-        background-attachment: fixed;
-        color: var(--primary-color);
+        background: linear-gradient(135deg, var(--background-color) 0%, #ffffff 100%);
+        color: var(--secondary-color);
     }
 
     .container {
         display: flex;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 12px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        background-color: var(--container-background);
+        border-radius: 20px;
+        box-shadow: 0 15px 30px var(--shadow-color);
         overflow: hidden;
         width: 90%;
-        max-width: 1000px;
+        max-width: 480px;
         transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
     }
 
-    .rating-section {
-        flex: 1;
-        padding: 3rem;
-        text-align: center;
-    }
-
-    .comment-section {
-        flex: 1;
-        padding: 3rem;
-        background-color: rgba(245, 245, 245, 0.9);
-        display: none;
+    .rating-section, .comment-section {
+        padding: 2rem;
     }
 
     .logo-container {
-        margin: 0 auto 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
     }
 
     .logo {
-        width: 180px;
+        width: 120px;
         height: auto;
         transition: transform 0.3s ease;
     }
@@ -79,47 +71,51 @@
 
     h1 {
         margin-bottom: 1rem;
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         font-weight: 700;
         color: var(--primary-color);
+        text-align: center;
     }
 
     p {
         margin-bottom: 1.5rem;
         font-size: 1rem;
-        line-height: 1.6;
+        line-height: 1.5;
         color: var(--secondary-color);
+        text-align: center;
     }
 
     .stars {
-        font-size: 3rem;
-        color: #CCCCCC;
+        font-size: 2.5rem;
+        color: #D1D5DB;
         cursor: pointer;
         margin-bottom: 1.5rem;
         user-select: none;
+        text-align: center;
     }
 
     .star {
         display: inline-block;
-        margin: 0 0.2rem;
+        margin: 0 0.1rem;
         transition: all 0.3s ease;
     }
 
     .star:hover,
     .star.selected {
         color: var(--star-color);
+        transform: scale(1.2);
     }
 
     .emoji-container {
         display: flex;
         justify-content: center;
-        margin-bottom: 2rem;
-        height: 4rem;
+        margin-bottom: 1.5rem;
+        height: 3rem;
     }
 
     .emoji {
-        font-size: 2.5rem;
-        margin: 0 0.5rem;
+        font-size: 2rem;
+        margin: 0 0.3rem;
         opacity: 0;
         transition: all 0.5s ease;
         transform: translateY(20px);
@@ -132,39 +128,38 @@
 
     #comment-section textarea, #comment-section input {
         width: 100%;
-        padding: 15px;
+        padding: 0.8rem;
         border-radius: 8px;
         border: 1px solid var(--border-color);
         font-size: 1rem;
-        margin-bottom: 15px;
-        font-family: 'Inter', sans-serif;
+        margin-bottom: 1rem;
+        font-family: 'Roboto', sans-serif;
         box-sizing: border-box;
         transition: all 0.3s ease;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: #f8f9fa;
     }
 
     #comment-section textarea {
-        min-height: 40px;
-        max-height: 200px;
-        resize: none;
-        overflow: hidden;
+        min-height: 80px;
+        max-height: 150px;
+        resize: vertical;
     }
 
     #comment-section textarea:focus, #comment-section input:focus {
-        border-color: var(--secondary-color);
+        border-color: var(--primary-color);
         outline: none;
-        box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
-        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
     }
 
     #submit-button {
-        padding: 12px 25px;
+        width: 100%;
+        padding: 0.8rem 1rem;
         border-radius: 8px;
         background-color: var(--primary-color);
-        color: var(--container-background);
+        color: #FFFFFF;
         border: none;
         font-size: 1rem;
-        font-weight: 600;
+        font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
         text-decoration: none;
@@ -173,16 +168,17 @@
     #submit-button:hover {
         background-color: var(--hover-color);
         transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px var(--shadow-color);
     }
 
     #confirmation {
-        font-weight: 600;
+        font-weight: 500;
         color: var(--primary-color);
         margin-top: 1rem;
         font-size: 1.1rem;
         opacity: 0;
         transition: opacity 0.5s ease;
+        text-align: center;
     }
 
     #confirmation.visible {
@@ -190,43 +186,50 @@
     }
 
     .testimonials {
-        margin-top: 2rem;
+        margin-top: 1.5rem;
         padding: 1rem;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 8px;
-        max-height: 400px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        max-height: 250px;
         overflow-y: auto;
     }
 
     .testimonial {
         margin-bottom: 1rem;
         padding: 1rem;
-        background-color: #ffffff;
+        background-color: #FFFFFF;
         border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: left;
+        box-shadow: 0 2px 4px var(--shadow-color);
+        transition: all 0.3s ease;
+    }
+
+    .testimonial:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px var(--shadow-color);
     }
 
     .testimonial-rating {
         color: var(--star-color);
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
     }
 
     .testimonial-text {
         font-style: italic;
         color: var(--secondary-color);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
     }
 
     .testimonial-author {
-        font-weight: 600;
+        font-weight: 500;
         color: var(--primary-color);
+        font-size: 0.9rem;
     }
 
     .testimonial-date {
-        font-size: 0.9rem;
-        color: var(--secondary-color);
+        font-size: 0.8rem;
+        color: #95a5a6;
     }
 
     @keyframes slideDown {
@@ -244,29 +247,34 @@
         animation: slideDown 0.5s ease-out forwards;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         .container {
-            flex-direction: column;
+            width: 95%;
         }
 
         .rating-section, .comment-section {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
 
         .stars {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
         }
 
         .emoji {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .logo {
-            width: 150px;
+            width: 100px;
+        }
+
+        #submit-button {
+            padding: 0.7rem 1rem;
+            font-size: 0.9rem;
         }
     }
 </style>
@@ -278,8 +286,8 @@
                     <img src="https://i.ibb.co/X8qT12B/rogner-logo.png" alt="Logo" class="logo">
                 </a>
             </figure>
-            <h1>Votre avis nous intéresse</h1>
-            <p>Aidez-nous à améliorer notre service en nous laissant une note. Votre retour est précieux pour nous.</p>
+            <h1>Votre avis compte</h1>
+            <p>Aidez-nous à améliorer notre service en partageant votre expérience.</p>
             <div class="stars" role="radiogroup" aria-label="Notation par étoiles">
                 <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="1 étoile">☆</span>
                 <span class="star" role="radio" tabindex="0" aria-checked="false" aria-label="2 étoiles">☆</span>
@@ -295,17 +303,16 @@
                 <span class="emoji" data-rating="5">😄</span>
             </div>
             <p id="confirmation"></p>
-
-            <div class="testimonials" id="testimonials">
-                <h2>Avis récents de nos clients</h2>
-                <!-- Les avis générés dynamiquement seront insérés ici -->
-            </div>
         </div>
-        <div class="comment-section" id="comment-section">
+        <div class="comment-section" id="comment-section" style="display: none;">
             <h2>Partagez votre expérience</h2>
-            <input type="text" id="name" placeholder="Votre nom et prénom" required>
-            <textarea id="comment" placeholder="Votre avis compte ! Dites-nous en plus..."></textarea>
+            <input type="text" id="name" placeholder="Votre nom" required>
+            <textarea id="comment" placeholder="Votre avis est important. Dites-nous en plus..."></textarea>
             <button id="submit-button">Publier</button>
+        </div>
+        <div class="testimonials" id="testimonials">
+            <h2>Avis récents</h2>
+            <!-- Les avis générés dynamiquement seront insérés ici -->
         </div>
     </div>
 
@@ -323,38 +330,22 @@
 
             // Base de données d'avis
             const reviewsDatabase = [
-                { name: "Thomas D.", comment: "Franchement, j'étais un peu sceptique au début, mais wow ! Le service client est top, ils ont répondu super vite à mes questions. Et le produit ? Exactement ce que je cherchais. Trop content de mon achat !" },
-                { name: "Émilie L.", comment: "Bon, dans l'ensemble c'était une bonne expérience. Le produit est de qualité, rien à dire là-dessus. Par contre, la livraison a pris un jour de plus que prévu. Pas dramatique, mais un peu frustrant quand on est impatient comme moi !" },
-                { name: "Marc B.", comment: "Ça fait un moment que je suis client, et je dois dire que je suis toujours aussi satisfait. L'équipe est vraiment à l'écoute, ils ont même pris en compte une suggestion que j'avais faite l'année dernière. Ça, c'est du service !" },
-                { name: "Sophie R.", comment: "Je recommande vivement ! La qualité est au rendez-vous et le rapport qualité-prix est imbattable. J'ai déjà commandé plusieurs fois et je n'ai jamais été déçu." },
-                { name: "Pierre M.", comment: "Le produit correspond parfaitement à la description. Livraison rapide et emballage soigné. Je suis très satisfait de mon achat !" },
-                { name: "Lucie G.", comment: "Service client réactif et à l'écoute. J'ai eu un petit souci avec ma commande et ils ont tout réglé en un rien de temps. Bravo !" },
-                { name: "Antoine F.", comment: "Première expérience avec cette entreprise et je suis agréablement surpris. Le produit est de bonne qualité et le prix est correct. Je reviendrai !" },
-                { name: "Camille H.", comment: "Un grand merci pour votre professionnalisme. La commande a été traitée rapidement et le produit est impeccable. Je suis fan !" },
-                { name: "Julien N.", comment: "J'hésite rarement à laisser des avis, mais là je tenais à partager mon expérience positive. Tout était parfait du début à la fin." },
-                { name: "Marie P.", comment: "Produit reçu en bon état et dans les délais. Rien à redire, c'est exactement ce que j'attendais. Merci !" },
-                { name: "Paul R.", comment: "Excellente expérience d'achat. Le site est facile à naviguer, la commande simple à passer. Le produit est arrivé bien emballé et correspond parfaitement à mes attentes." },
-                { name: "Claire M.", comment: "Je suis cliente régulière et je n'ai jamais été déçue. Les produits sont toujours de grande qualité et le service client est irréprochable." },
-                { name: "François L.", comment: "Très agréablement surpris par la rapidité de la livraison. Commandé un lundi, reçu le mercredi ! Le produit est top, je recommande." },
-                { name: "Nathalie D.", comment: "J'apprécie particulièrement la transparence de cette entreprise. Les descriptions des produits sont précises et honnêtes. On sait exactement ce qu'on achète." },
-                { name: "Olivier B.", comment: "C'est rare de nos jours de trouver un service aussi attentionné. J'ai eu un problème avec ma commande et ils ont été d'une gentillesse et d'une efficacité remarquables pour le résoudre." },
-                { name: "Sylvie T.", comment: "Les prix sont peut-être un peu plus élevés que la concurrence, mais la qualité est au rendez-vous. On en a vraiment pour son argent." },
-                { name: "Michel G.", comment: "Je suis impressionné par la qualité du packaging. Tout est fait pour que le produit arrive en parfait état. C'est un détail qui compte !" },
-                { name: "Isabelle F.", comment: "J'ai découvert cette entreprise grâce à un ami et je ne regrette pas du tout. Produits de qualité, livraison rapide, que demander de plus ?" },
-                { name: "Laurent M.", comment: "C'est la troisième fois que je commande et je suis toujours aussi satisfait. La constance dans la qualité, c'est leur point fort !" },
-                { name: "Audrey L.", comment: "J'aime beaucoup leur approche éco-responsable. L'emballage est minimal mais efficace, et les produits sont durables. C'est important de nos jours." }
+                { name: "Thomas D.", comment: "Service client réactif et produit de qualité. Très satisfait de mon achat !" },
+                { name: "Émilie L.", comment: "Bonne expérience globale. Produit conforme, livraison un peu longue." },
+                { name: "Marc B.", comment: "Client fidèle, toujours aussi satisfait. L'équipe est à l'écoute." },
+                { name: "Sophie R.", comment: "Excellent rapport qualité-prix. Je recommande vivement." },
+                { name: "Pierre M.", comment: "Produit conforme à la description. Livraison rapide et soignée." }
             ];
 
-            // Fonction pour générer des avis aléatoires
             function generateRandomReviews() {
                 const testimonials = document.getElementById('testimonials');
-                testimonials.innerHTML = '<h2>Avis récents de nos clients</h2>';
+                testimonials.innerHTML = '<h2>Avis récents</h2>';
 
                 const timeUnits = ["jours", "semaines", "mois"];
                 const shuffledReviews = [...reviewsDatabase].sort(() => 0.5 - Math.random());
 
-                for (let i = 0; i < Math.min(10, shuffledReviews.length); i++) {
-                    const rating = Math.floor(Math.random() * 2) + 4; // Génère une note entre 4 et 5
+                for (let i = 0; i < Math.min(3, shuffledReviews.length); i++) {
+                    const rating = Math.floor(Math.random() * 2) + 4;
                     const review = shuffledReviews[i];
                     const timeValue = Math.floor(Math.random() * 4) + 1;
                     const timeUnit = timeUnits[Math.floor(Math.random() * timeUnits.length)];
@@ -371,7 +362,6 @@
                 }
             }
 
-            // Générer les avis aléatoires au chargement de la page
             generateRandomReviews();
 
             stars.forEach((star, index) => {
@@ -395,7 +385,7 @@
             function hoverStars(rating) {
                 stars.forEach((star, index) => {
                     star.textContent = index < rating ? '★' : '☆';
-                    star.style.color = index < rating ? 'var(--star-color)' : '#CCCCCC';
+                    star.style.color = index < rating ? 'var(--star-color)' : '#D1D5DB';
                 });
                 showEmoji(rating);
             }
@@ -403,7 +393,7 @@
             function resetStars() {
                 stars.forEach(star => {
                     star.textContent = '☆';
-                    star.style.color = '#CCCCCC';
+                    star.style.color = '#D1D5DB';
                 });
                 hideEmojis();
             }
@@ -411,7 +401,7 @@
             function updateStars(rating) {
                 stars.forEach((star, index) => {
                     star.textContent = index < rating ? '★' : '☆';
-                    star.style.color = index < rating ? 'var(--star-color)' : '#CCCCCC';
+                    star.style.color = index < rating ? 'var(--star-color)' : '#D1D5DB';
                     star.setAttribute('aria-checked', index < rating ? 'true' : 'false');
                 });
             }
@@ -434,23 +424,14 @@
                 document.querySelector(`.emoji[data-rating="${rating}"]`).classList.add('visible');
 
                 if (rating >= 4) {
-                    confirmation.textContent = "Merci pour votre évaluation !";
-                    confirmation.classList.add('visible');
-                    stars.forEach(star => star.classList.add('selected'));
-                    commentSection.style.display = 'none';
-                    setTimeout(() => {
-                        window.location.href = 'https://fr.trustpilot.com/';
-                    }, 2000);
-                } else if (rating === 3) {
-                    // Animation moderne pour 3 étoiles
-                    commentSection.style.display = 'block';
-                    commentSection.classList.remove('slide-down');
-                    void commentSection.offsetWidth; // Force reflow
-                    commentSection.classList.add('slide-down');
+                    window.location.href = 'https://fr.trustpilot.com/';
                 } else {
                     confirmation.textContent = "";
                     confirmation.classList.remove('visible');
                     commentSection.style.display = 'block';
+                    commentSection.classList.remove('slide-down');
+                    void commentSection.offsetWidth; // Force reflow
+                    commentSection.classList.add('slide-down');
                 }
             }
 
