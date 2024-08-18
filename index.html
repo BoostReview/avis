@@ -194,6 +194,8 @@
         padding: 1rem;
         background-color: rgba(255, 255, 255, 0.7);
         border-radius: 8px;
+        max-height: 400px;
+        overflow-y: auto;
     }
 
     .testimonial {
@@ -225,6 +227,21 @@
     .testimonial-date {
         font-size: 0.9rem;
         color: var(--secondary-color);
+    }
+
+    @keyframes slideDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .slide-down {
+        animation: slideDown 0.5s ease-out forwards;
     }
 
     @media (max-width: 768px) {
@@ -304,31 +321,41 @@
 
             let selectedRating = 0;
 
+            // Base de données d'avis
+            const reviewsDatabase = [
+                { name: "Thomas D.", comment: "Franchement, j'étais un peu sceptique au début, mais wow ! Le service client est top, ils ont répondu super vite à mes questions. Et le produit ? Exactement ce que je cherchais. Trop content de mon achat !" },
+                { name: "Émilie L.", comment: "Bon, dans l'ensemble c'était une bonne expérience. Le produit est de qualité, rien à dire là-dessus. Par contre, la livraison a pris un jour de plus que prévu. Pas dramatique, mais un peu frustrant quand on est impatient comme moi !" },
+                { name: "Marc B.", comment: "Ça fait un moment que je suis client, et je dois dire que je suis toujours aussi satisfait. L'équipe est vraiment à l'écoute, ils ont même pris en compte une suggestion que j'avais faite l'année dernière. Ça, c'est du service !" },
+                { name: "Sophie R.", comment: "Je recommande vivement ! La qualité est au rendez-vous et le rapport qualité-prix est imbattable. J'ai déjà commandé plusieurs fois et je n'ai jamais été déçu." },
+                { name: "Pierre M.", comment: "Le produit correspond parfaitement à la description. Livraison rapide et emballage soigné. Je suis très satisfait de mon achat !" },
+                { name: "Lucie G.", comment: "Service client réactif et à l'écoute. J'ai eu un petit souci avec ma commande et ils ont tout réglé en un rien de temps. Bravo !" },
+                { name: "Antoine F.", comment: "Première expérience avec cette entreprise et je suis agréablement surpris. Le produit est de bonne qualité et le prix est correct. Je reviendrai !" },
+                { name: "Camille H.", comment: "Un grand merci pour votre professionnalisme. La commande a été traitée rapidement et le produit est impeccable. Je suis fan !" },
+                { name: "Julien N.", comment: "J'hésite rarement à laisser des avis, mais là je tenais à partager mon expérience positive. Tout était parfait du début à la fin." },
+                { name: "Marie P.", comment: "Produit reçu en bon état et dans les délais. Rien à redire, c'est exactement ce que j'attendais. Merci !" },
+                { name: "Paul R.", comment: "Excellente expérience d'achat. Le site est facile à naviguer, la commande simple à passer. Le produit est arrivé bien emballé et correspond parfaitement à mes attentes." },
+                { name: "Claire M.", comment: "Je suis cliente régulière et je n'ai jamais été déçue. Les produits sont toujours de grande qualité et le service client est irréprochable." },
+                { name: "François L.", comment: "Très agréablement surpris par la rapidité de la livraison. Commandé un lundi, reçu le mercredi ! Le produit est top, je recommande." },
+                { name: "Nathalie D.", comment: "J'apprécie particulièrement la transparence de cette entreprise. Les descriptions des produits sont précises et honnêtes. On sait exactement ce qu'on achète." },
+                { name: "Olivier B.", comment: "C'est rare de nos jours de trouver un service aussi attentionné. J'ai eu un problème avec ma commande et ils ont été d'une gentillesse et d'une efficacité remarquables pour le résoudre." },
+                { name: "Sylvie T.", comment: "Les prix sont peut-être un peu plus élevés que la concurrence, mais la qualité est au rendez-vous. On en a vraiment pour son argent." },
+                { name: "Michel G.", comment: "Je suis impressionné par la qualité du packaging. Tout est fait pour que le produit arrive en parfait état. C'est un détail qui compte !" },
+                { name: "Isabelle F.", comment: "J'ai découvert cette entreprise grâce à un ami et je ne regrette pas du tout. Produits de qualité, livraison rapide, que demander de plus ?" },
+                { name: "Laurent M.", comment: "C'est la troisième fois que je commande et je suis toujours aussi satisfait. La constance dans la qualité, c'est leur point fort !" },
+                { name: "Audrey L.", comment: "J'aime beaucoup leur approche éco-responsable. L'emballage est minimal mais efficace, et les produits sont durables. C'est important de nos jours." }
+            ];
+
             // Fonction pour générer des avis aléatoires
             function generateRandomReviews() {
                 const testimonials = document.getElementById('testimonials');
                 testimonials.innerHTML = '<h2>Avis récents de nos clients</h2>';
 
-                const names = ["Thomas D.", "Émilie L.", "Marc B.", "Sophie R.", "Pierre M.", "Lucie G.", "Antoine F.", "Camille H.", "Julien N.", "Marie P."];
-                const comments = [
-                    "Franchement, j'étais un peu sceptique au début, mais wow ! Le service client est top, ils ont répondu super vite à mes questions. Et le produit ? Exactement ce que je cherchais. Trop content de mon achat !",
-                    "Bon, dans l'ensemble c'était une bonne expérience. Le produit est de qualité, rien à dire là-dessus. Par contre, la livraison a pris un jour de plus que prévu. Pas dramatique, mais un peu frustrant quand on est impatient comme moi !",
-                    "Ça fait un moment que je suis client, et je dois dire que je suis toujours aussi satisfait. L'équipe est vraiment à l'écoute, ils ont même pris en compte une suggestion que j'avais faite l'année dernière. Ça, c'est du service !",
-                    "Je recommande vivement ! La qualité est au rendez-vous et le rapport qualité-prix est imbattable. J'ai déjà commandé plusieurs fois et je n'ai jamais été déçu.",
-                    "Le produit correspond parfaitement à la description. Livraison rapide et emballage soigné. Je suis très satisfait de mon achat !",
-                    "Service client réactif et à l'écoute. J'ai eu un petit souci avec ma commande et ils ont tout réglé en un rien de temps. Bravo !",
-                    "Première expérience avec cette entreprise et je suis agréablement surpris. Le produit est de bonne qualité et le prix est correct. Je reviendrai !",
-                    "Un grand merci pour votre professionnalisme. La commande a été traitée rapidement et le produit est impeccable. Je suis fan !",
-                    "J'hésite rarement à laisser des avis, mais là je tenais à partager mon expérience positive. Tout était parfait du début à la fin.",
-                    "Produit reçu en bon état et dans les délais. Rien à redire, c'est exactement ce que j'attendais. Merci !"
-                ];
-
                 const timeUnits = ["jours", "semaines", "mois"];
+                const shuffledReviews = [...reviewsDatabase].sort(() => 0.5 - Math.random());
 
-                for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < Math.min(10, shuffledReviews.length); i++) {
                     const rating = Math.floor(Math.random() * 2) + 4; // Génère une note entre 4 et 5
-                    const name = names[Math.floor(Math.random() * names.length)];
-                    const comment = comments[Math.floor(Math.random() * comments.length)];
+                    const review = shuffledReviews[i];
                     const timeValue = Math.floor(Math.random() * 4) + 1;
                     const timeUnit = timeUnits[Math.floor(Math.random() * timeUnits.length)];
 
@@ -336,8 +363,8 @@
                     testimonial.className = 'testimonial';
                     testimonial.innerHTML = `
                         <div class="testimonial-rating">${"★".repeat(rating)}${"☆".repeat(5-rating)}</div>
-                        <p class="testimonial-text">"${comment}"</p>
-                        <p class="testimonial-author">${name}</p>
+                        <p class="testimonial-text">"${review.comment}"</p>
+                        <p class="testimonial-author">${review.name}</p>
                         <p class="testimonial-date">Il y a ${timeValue} ${timeUnit}</p>
                     `;
                     testimonials.appendChild(testimonial);
@@ -414,6 +441,12 @@
                     setTimeout(() => {
                         window.location.href = 'https://fr.trustpilot.com/';
                     }, 2000);
+                } else if (rating === 3) {
+                    // Animation moderne pour 3 étoiles
+                    commentSection.style.display = 'block';
+                    commentSection.classList.remove('slide-down');
+                    void commentSection.offsetWidth; // Force reflow
+                    commentSection.classList.add('slide-down');
                 } else {
                     confirmation.textContent = "";
                     confirmation.classList.remove('visible');
