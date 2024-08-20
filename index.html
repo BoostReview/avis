@@ -378,7 +378,7 @@
                         <input type="tel" id="phone" name="phone" required placeholder="Votre numéro de téléphone">
                     </div>
                     <div class="form-group">
-                        <label for="company">Nom de l'entreprise et ou url</label>
+                        <label for="company">Nom de l'entreprise</label>
                         <input type="text" id="company" name="company" required placeholder="Nom de votre entreprise">
                     </div>
                     <button type="submit" id="submit-button">Envoyez</button>
@@ -446,8 +446,37 @@
 
             let selectedRating = 0;
 
-            // Empêcher le défilement de la page derrière la modale
-            document.body.style.overflow = 'hidden';
+            // Fonction pour stocker l'état de soumission dans le stockage local
+            function stockerSoumission() {
+                localStorage.setItem('formulaireSoumis', 'true');
+            }
+
+            // Fonction pour vérifier si le formulaire a été soumis
+            function verifierSoumission() {
+                return localStorage.getItem('formulaireSoumis') === 'true';
+            }
+
+            // Fonction pour afficher le modal
+            function afficherModal() {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Fonction pour fermer le modal
+            function fermerModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Vérification lors du chargement de la page
+            if (verifierSoumission()) {
+                // Le formulaire a été soumis, ne pas afficher le modal
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                // Le formulaire n'a pas été soumis, afficher le modal
+                afficherModal();
+            }
 
             contactForm.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -466,8 +495,8 @@
                         modalErrorMessage.style.display = 'none';
                         contactForm.reset();
                         setTimeout(() => {
-                            modal.style.display = 'none';
-                            document.body.style.overflow = 'auto';
+                            fermerModal();
+                            stockerSoumission();
                         }, 2000);
                     }, function(error) {
                         modalErrorMessage.style.display = 'block';
